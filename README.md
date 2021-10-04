@@ -76,3 +76,4 @@ axis.break(2,120,style="gap") #set break
 text(barpos,newdata+10,c(female_K739_0,male_K739_0,female_K739_1,male_K739_1)) #add text on barplot
 
 dev.off()
+
