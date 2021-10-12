@@ -16,6 +16,7 @@ male_median_BMI <- median(subset(df_sex_BMI,f.31.0.0==1)$f.21001.0.0,na.rm = TRU
 
 #boxplot
 library(ggplot2)
+library(ggpubr)
 annotation <- data.frame(x=c(1.5,2.5,1,2),
                          y=c(female_median_BMI,male_median_BMI,78,78),
                          label=c(female_median_BMI,male_median_BMI,paste("n = ",num_female),paste("n = ",num_male)))
@@ -27,6 +28,8 @@ ggplot(df_sex_BMI,aes(x=factor(f.31.0.0),y=f.21001.0.0))
   +scale_x_discrete(limits=c("0","1"), labels=c( "Female","Male"))
   +xlab("Sex") 
   +ylab("BMI")
+  +ggtitle(title="Interaction between Sex and BMI")
   +stat_summary(fun.y = "mean",geom="point",fill="white",shape=21,size=4)
-  +labs(title="Interaction between Sex and BMI")
+  +stat_compare_means(method="t.test",label.x = 1.2,label.y = 70)
+  +geom_text(data=annotation,aes(x=x, y=y, label=label),size=4)
 dev.off()
