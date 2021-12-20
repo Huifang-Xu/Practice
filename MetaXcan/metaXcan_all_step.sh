@@ -17,6 +17,8 @@ source activate imlabtools
 inputFile=("/scratch/hx37930/rotation_ky/MetaXcan/Omega_3/w3FA_NMR_TFAP_resinv.M1.txt")
 outputDir=("/scratch/hx37930/rotation_ky/MetaXcan/Omega_3")
 prefix="w3FA_NMR_TFAP_resinv.M1"
+sample_size=114999
+n_cases=114999
 
 step1="YES"
 step2="YES"
@@ -42,10 +44,10 @@ then
 		--chromosome_format \
 		-output_column_map BP position \
 		-output_column_map FRQ frequency \
-		--insert_value sample_size 114999 --insert_value n_cases 114999 \
+		--insert_value sample_size ${sample_size} --insert_value n_cases ${n_cases} \
 		-output_order variant_id panel_variant_id chromosome position effect_allele non_effect_allele frequency pvalue zscore effect_size standard_error sample_size n_cases \
 		-output ${outputDir}/01.gwas_parsing.${prefix}.txt.gz
-	echo "Done:Step 1"
+	echo "Done: Step 1"
 fi
 
 ##############################################
@@ -71,7 +73,7 @@ then
 			--standardise_dosages \
 			-output ${outputDir}/02.summary_imputation/${prefix}_chr${i}_sb0_reg0.1_ff0.01_by_region.txt.gz
 	done
-	echo "Done:Step 2"
+	echo "Done: Step 2"
 fi
 
 ##############################################
@@ -85,7 +87,7 @@ then
 		-pattern ${prefix}_* \
 		-parsimony 7 \
 		-output ${outputDir}/03.imputed_${prefix}.txt.gz
-	echo "Done:Step 3"
+	echo "Done: Step 3"
 fi
 
 ##############################################
@@ -110,7 +112,7 @@ then
 			--throw \
 			--output_file ${outputDir}/04.SPrediXcan_tissues/${prefix}__PM__${tissue}.csv
 	done
-	echo "Done:Step 4"
+	echo "Done: Step 4"
 fi
 
 ##############################################
@@ -136,5 +138,5 @@ if [[ "$step5" == YES ]];
 		--verbosity 7 \
 		--throw \
 		--output ${outputDir}/05.${prefix}_smultixcan.txt
-	echo "Done:Step 5"
+	echo "Done: Step 5"
 fi
