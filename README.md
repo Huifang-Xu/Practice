@@ -1,3 +1,2 @@
-# Practice UKB phenotype data processing
-
+# Practice
 
